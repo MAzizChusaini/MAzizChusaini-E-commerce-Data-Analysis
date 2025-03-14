@@ -1,5 +1,5 @@
 dashboard
-https://e-commerce-data-analysis-7xb7pq4eu84p44acvgkhzs.streamlit.app/
+https://mazizchusaini-e-commerce-data-analysis.streamlit.app/
 
 repository
 https://github.com/MAzizChusaini/E-commerce-Data-Analysis
