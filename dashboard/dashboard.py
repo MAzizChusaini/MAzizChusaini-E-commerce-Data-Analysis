@@ -61,7 +61,7 @@ sns.heatmap(numeric_df.corr(), annot=True, cmap='coolwarm', fmt='.2f', linewidth
 st.pyplot(fig)
 
 # Delivery Status (Bar and Pie)
-delivery_counts = filtered_df['Dev_stat'].value_counts()
+delivery_counts = filtered_df['is_late'].value_counts()
 st.header("Delivery Status")
 
 col1, col2 = st.columns(2)
@@ -71,6 +71,7 @@ with col1:
     fig, ax = plt.subplots()
     delivery_counts.plot(kind='bar', color=['green', 'red'], ax=ax)
     plt.xticks(ticks=[0, 1], labels=['On-Time', 'Late'], rotation=0)
+    ax.set_xlabel('Dev_stat')
     st.pyplot(fig)
 
 with col2:
