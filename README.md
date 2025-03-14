@@ -1,10 +1,4 @@
-# Dicoding Collection Dashboard ✨
-
-## change dirrectory
-
-```
-cd "[your_folder_name]/submission/dashboard"
-```
+# Ecommerce Analize
 
 ## Setup Environment - Anaconda
 
@@ -18,7 +12,7 @@ pip install -r requirements.txt
 
 ```
 mkdir proyek_analisis_data
-cd proyek_analisis_data
+cd "[your_folder_name]/submission/dashboard"
 pipenv install
 pipenv shell
 pip install -r requirements.txt
