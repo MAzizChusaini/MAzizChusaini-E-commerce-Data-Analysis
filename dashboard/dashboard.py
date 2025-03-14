@@ -38,32 +38,59 @@ col3.metric("Total Orders", f"{total_orders}")
 
 col1, col2 = st.columns(2)
 
-# Payment Distribution
+# Distribution of Purchase Timestamp
 with col1:
-    st.header("Distribution of Payment Values")
-    fig, ax = plt.subplots()
-    sns.histplot(filtered_df['payment_value'], kde=True, ax=ax)
+    st.header("Distribusi Waktu Pembelian")
+    fig, ax = plt.subplots(figsize=(8, 5))
+    sns.histplot(filtered_df['order_purchase_timestamp'], kde=True, bins=30, ax=ax)
+    plt.xticks(rotation=45)
     st.pyplot(fig)
 
-# Review Score Distribution
+# Box Plot of Product Price
 with col2:
-    st.header("Review Score Distribution")
-    fig, ax = plt.subplots()
-    sns.countplot(x='review_score', data=filtered_df, ax=ax)
+    st.header("Box Plot Harga Produk")
+    fig, ax = plt.subplots(figsize=(8, 5))
+    sns.boxplot(x=filtered_df['payment_value'], ax=ax)
     st.pyplot(fig)
-    
+
+# Heatmap Korelasi Numerik
+st.header("Heatmap Korelasi Numerik")
+numeric_df = filtered_df.select_dtypes(include=['number'])
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.heatmap(numeric_df.corr(), annot=True, cmap='coolwarm', fmt='.2f', linewidths=0.5, ax=ax)
+st.pyplot(fig)
+
+# Delivery Status (Bar and Pie)
+delivery_counts = filtered_df['is_late'].value_counts()
+
 col1, col2 = st.columns(2)
 
-# Top Products by Sales
 with col1:
-    st.header("Top 5 Products by Sales")
-    top_products = filtered_df.groupby('product_id')['payment_value'].sum().nlargest(5)
-    st.bar_chart(top_products)
+    st.header("Late vs On-Time Deliveries")
+    fig, ax = plt.subplots()
+    delivery_counts.plot(kind='bar', color=['green', 'red'], ax=ax)
+    plt.xticks(ticks=[0, 1], labels=['On-Time', 'Late'], rotation=0)
+    st.pyplot(fig)
 
-# Add another section for Customer Locations
 with col2:
-    st.write("### Top Customer Cities")
-    top_cities = filtered_df['customer_city'].value_counts().nlargest(10)
-    st.bar_chart(top_cities)
-    
+    st.header("Late vs On-Time Deliveries (Pie)")
+    fig, ax = plt.subplots()
+    custom_labels = ['On-Time', 'Late']
+    delivery_counts.plot(kind='pie', autopct='%1.1f%%', colors=['green', 'red'], ax=ax, labels=custom_labels)
+    ax.set_ylabel('')
+    st.pyplot(fig)
+
+# Top Products by Volume and Revenue
+col1, col2 = st.columns(2)
+
+with col1:
+    st.header("5 Produk Teratas berdasarkan Volume Penjualan")
+    top_volume = filtered_df.groupby('product_id')['order_item_id'].count().nlargest(5)
+    st.bar_chart(top_volume)
+
+with col2:
+    st.header("5 Produk Teratas berdasarkan Revenue")
+    top_revenue = filtered_df.groupby('product_id')['payment_value'].sum().nlargest(5)
+    st.bar_chart(top_revenue)
+
 st.caption('By M. Aziz Chusaini - MC211D5Y1610')
