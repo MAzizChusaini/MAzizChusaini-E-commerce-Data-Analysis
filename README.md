@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ```
 mkdir proyek_analisis_data
-cd "[your_folder_name]/submission/dashboard"
+cd "[your_folder_name]/submission"
 pipenv install
 pipenv shell
 pip install -r requirements.txt
@@ -21,7 +21,7 @@ pip install -r requirements.txt
 ## Run steamlit app
 
 ```
-streamlit run dashboard.py
+streamlit run dashboard/dashboard.py
 ```
 
 ## To stop it
